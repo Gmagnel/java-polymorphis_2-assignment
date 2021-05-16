@@ -1,0 +1,290 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\froman\fprq2\fcharset0 Times New Roman;}{\f1\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\widctlpar\sa160\sl252\slmult1\qc\b\f0\fs24 Gmagnel Talang Emmanuel\par
+\b0 Java Programming Language\par
+Java polymorphism assignment2\par
+
+\pard\sa200\sl276\slmult1\f1\fs22\lang9\par
+package updatestaff;\par
+public abstract class Employee \{ \par
+  private String firstName;\par
+  private String lastName;\par
+  private String socialSecurityNumber;\par
+ public Employee( String first, String last, String ssn )\par
+ \{\par
+firstName = first;\par
+ lastName = last;\par
+ socialSecurityNumber = ssn;\par
+ \} \par
+ // set first name\par
+ public void setFirstName( String first )\par
+ \{\par
+ firstName = first;\par
+ \} // end method setFirstName\par
+\par
+// return first name\par
+ public String getFirstName()\par
+ \{\par
+ return firstName;\par
+ \} // end method getFirstName\par
+ // set last name\par
+ public void setLastName( String last )\par
+\{\par
+ lastName = last;\par
+ \} // end method setLastName\par
+\par
+ // return last name\par
+ public String getLastName()\par
+ \{\par
+ return lastName;\par
+ \} // end method getLastName\par
+ // set social security number\par
+ public void setSocialSecurityNumber( String ssn )\par
+ \{\par
+socialSecurityNumber = ssn; // should validate\par
+\} // end method setSocialSecurityNumber\par
+ // return social security number\par
+ public String getSocialSecurityNumber()\par
+ \{\par
+ return socialSecurityNumber;\par
+ \} // end method getSocialSecurityNumber\par
+ // return String representation of Employee object\par
+ public String toString()\par
+ \{\par
+ return String.format( "%s %s\\nsocial security number: %s",\par
+ getFirstName(), getLastName(), getSocialSecurityNumber() );\par
+ \} // end method toString\par
+ // abstract method overridden by subclasses \par
+ public abstract double earnings(); // no implementation here\par
+  \{\par
+ // end abstract class Employee\par
+ class SalariedEmployee extends Employee\par
+  \{\par
+ private double weeklySalary;\par
+   // four-argument constructor\par
+ public SalariedEmployee( String first, String last, String ssn,\par
+ double salary )\par
+ \{\par
+ super( first, last, ssn ); // pass to Employee constructor\par
+ setWeeklySalary( salary ); // validate and store salary\par
+ \} // end four-argument SalariedEmployee constructor\par
+ // set salary\par
+ public void setWeeklySalary( double salary )\par
+ \{\par
+ weeklySalary = salary < ? : salary;\par
+ \} // end method setWeeklySalary\par
+ // return salary\par
+ public double getWeeklySalary()\par
+ \{\par
+ return weeklySalary;\par
+ \} // end method getWeeklySalary\par
+\par
+ // calculate earnings; override abstract method earnings in Employee\par
+ public double earnings() \par
+ \{ \par
+  return getWeeklySalary(); \par
+ \} // end method earnings \par
+\par
+ // return String representation of SalariedEmployee object \par
+ public String toString() \par
+\{ \par
+  return String.format( "salaried employee: %s\\n%s: $%,.2f",\par
+  super.toString(), "weekly salary", getWeeklySalary() );\par
+ \} // end method toString \par
+\}\par
+ \} // end class SalariedEmployee\par
+ public class HourlyEmployee extends Employee\par
+  \{\par
+  private double wage; // wage per hour\par
+  private double hours; // hours worked for week\par
+   // five-argument constructor\par
+ public HourlyEmployee( String first, String last, String ssn,\par
+ double hourlyWage, double hoursWorked )\par
+ \{\par
+ super( first, last, ssn );\par
+ setWage( hourlyWage ); // validate hourly wage\par
+ setHours( hoursWorked ); // validate hours worked\par
+ \} // end five-argument HourlyEmployee constructor\par
+ // set wage\par
+ public void setWage( double hourlyWage )\par
+ \{\par
+ wage = ( hourlyWage < ) ? : hourlyWage;\par
+ \} // end method setWage\par
+ // return wage\par
+ public double getWage()\par
+ \{\par
+ return wage;\par
+ \} // end method getWage\par
+ // set hours worked\par
+ public void setHours( double hoursWorked )\par
+ \{\par
+ hours = ( ( hoursWorked >= ) && ( hoursWorked <= ) ) ?\par
+ hoursWorked : ;\par
+ \} // end method setHours\par
+ // return hours worked\par
+ public double getHours()\par
+ \{\par
+ return hours;\par
+ \} // end method getHours\par
+\par
+ // calculate earnings; override abstract method earnings in Employee\par
+ public double earnings() \par
+ \{ \par
+  if ( getHours() <= 40 ) // no overtime \par
+  return getWage() * getHours(); \par
+  else \par
+  return 40 * getWage() + ( getHours() - 40 ) * getWage()  ;\par
+ \} // end method earnings \par
+\par
+ // return String representation of HourlyEmployee object \par
+ public String toString() \par
+ \{ \par
+  return String.format( "hourly employee: %s\\n%s: $%,.2f; %s: %,.2f",\par
+  super.toString(), "hourly wage", getWage(), \par
+  "hours worked", getHours() ); \par
+ \} \par
+ \} \par
+//CommissionEmployee class extends Employee.\par
+   public class CommissionEmployee extends Employee\par
+  \{\par
+  private double grossSales; // gross weekly sales\par
+  private double commissionRate; // commission percentage\par
+  // five-argument constructor\par
+public CommissionEmployee( String first, String last, String ssn,\par
+ double sales, double rate )\par
+ \{\par
+ super( first, last, ssn );\par
+ setGrossSales( sales );\par
+ setCommissionRate( rate );\par
+ \} // end five-argument CommissionEmployee constructor\par
+ // set commission rate\par
+ public void setCommissionRate( double rate )\{\par
+ commissionRate = ( rate > && rate < ) ? rate: ;\par
+ \} // end method setCommissionRate\par
+// return commission rate\par
+ public double getCommissionRate()\par
+ \{\par
+ return commissionRate;\par
+ \} // end method getCommissionRate\par
+ // set gross sales amount\par
+ public void setGrossSales( double sales )\par
+ \{\par
+ grossSales = ( sales < ) ? : sales;\par
+ \} // end method setGrossSales\par
+ // return gross sales amount\par
+ public double getGrossSales()\par
+ \{\par
+ return grossSales;\par
+ \} // end method getGrossSales\par
+ // calculate earnings; override abstract method earnings in Employee\par
+ public double earnings() \par
+ \{ \par
+  return getCommissionRate() * getGrossSales(); \par
+ \} // end method earnings \par
+ // return String representation of CommissionEmployee object public String toString()  \par
+  return String.format( "%s: %s\\n%s: $%,.2f; %s: %.2f", \par
+  "commission employee", super.toString(), \par
+  "gross sales", getGrossSales(), \par
+  "commission rate", getCommissionRate() ); \par
+   \}\par
+   class BasePlusCommissionEmployee extends CommissionEmployee\par
+  \{\par
+  private double baseSalary; // base salary per week\par
+   // six-argument constructor\par
+  public BasePlusCommissionEmployee( String first, String last,\par
+ String ssn, double sales, double rate, double salary )\par
+ \{\par
+ super( first, last, ssn, sales, rate );\par
+ setBaseSalary( salary ); // validate and store base salary\par
+ \} // end six-argument BasePlusCommissionEmployee constructor\par
+ // set base salary\par
+ public void setBaseSalary( double salary )\par
+ \{\par
+ baseSalary = ( salary < ) ? : salary; // non-negative\par
+ \} // end method setBaseSalary\par
+ // return base salary\par
+ public double getBaseSalary()\par
+ \{\par
+ return baseSalary;\par
+ \} // end method getBaseSalary\par
+ // calculate earnings; override method earnings in CommissionEmployee\par
+ public double earnings() \par
+ \{ \par
+  return getBaseSalary() + super.earnings(); \par
+ \} // end method earnings \par
+ // return String representation of BasePlusCommissionEmployee object\par
+ public String toString() \par
+ \{ \par
+ return String.format( "%s %s; %s: $%,.2f", \par
+  "base-salaried", super.toString(), \par
+  "base salary", getBaseSalary() ); \par
+ \} // end method toString \par
+ \} // end class BasePlusCommissionEmployee\par
+package updatestaff;\par
+public class UpdateStaff \{  \par
+    public static void main(String[] args) \{\par
+          //create subclass objects \par
+ SalariedEmployee salariedEmployee =  new SalariedEmployee( "John", "Smith", "111-11-1111", ); \par
+ HourlyEmployee hourlyEmployee = new HourlyEmployee( "Karen", "Price", "222-22-2222", , 40 );\par
+ CommissionEmployee commissionEmployee = new CommissionEmployee("Sue", "Jones", "333-33-3333", 10000, .06 );\par
+BasePlusCommissionEmployee basePlusCommissionEmployee =new BasePlusCommissionEmployee("Bob", "Lewis", "444-44-4444", 5000, .04, 300 ); \par
+ System.out.println( "Employees processed individually:\\n" );\par
+\par
+ System.out.printf( "%s\\n%s: $%,.2f\\n\\n",\par
+ salariedEmployee, "earned", salariedEmployee.earnings() );\par
+ System.out.printf( "%s\\n%s: $%,.2f\\n\\n",\par
+ hourlyEmployee, "earned", hourlyEmployee.earnings() );\par
+ System.out.printf( "%s\\n%s: $%,.2f\\n\\n",\par
+ commissionEmployee, "earned", commissionEmployee.earnings() );\par
+ System.out.printf( "%s\\n%s: $%,.2f\\n\\n," + basePlusCommissionEmployee + ",earned," + basePlusCommissionEmployee.earnings());\par
+\par
+ // create four-element Employee array\par
+ Employee employees[] = new Employee[ 4 ];\par
+\par
+ // initialize array with Employees \par
+ employees[ 0 ] = salariedEmployee; \par
+ employees[ 1 ] = hourlyEmployee; \par
+ employees[ 2 ] = commissionEmployee; \par
+ employees[ 3 ] = basePlusCommissionEmployee;\par
+\par
+ System.out.println( "Employees processed polymorphically:\\n" );\par
+\par
+ // generically process each element in array employees\par
+ for ( Employee currentEmployee : employees )\par
+ \{\par
+     System.out.println( currentEmployee ); // invokes toString\par
+\par
+ // determine whether element is a BasePlusCommissionEmployee\par
+ if ( currentEmployee instanceof basePlusCommissionEmployee )\par
+ \{\par
+ // downcast Employee reference to\par
+ // BasePlusCommissionEmployee reference\par
+ basePlusCommissionEmployee employee = ( BasePlusCommissionEmployee ) currentEmployee;\par
+\par
+ double oldBaseSalary = employee.getBaseSalary();\par
+ employee.setBaseSalary( * oldBaseSalary );\par
+ System.out.printf(\par
+ "new base salary with 10%% increase is: $%,.2f\\n",\par
+ employee.getBaseSalary() );\par
+ \} // end if\par
+\par
+ System.out.printf(\par
+ "earned $%,.2f\\n\\n", currentEmployee.earnings() );\par
+ \} // end for\par
+\par
+ // get type name of each object in employees array\par
+ for ( int j = 0; j < employees.length; j++ ) \par
+  System.out.printf( "Employee %d is a %s\\n", j, \par
+  employees[ j ].getClass().getName() ); \par
+ \} // end main\par
+ \} // end class PayrollSystemTest\par
+        \par
+    \par
+    \par
+\par
+\par
+    \par
+    \par
+\par
+}
+ 
